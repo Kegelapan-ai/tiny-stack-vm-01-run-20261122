@@ -11,13 +11,14 @@ Q[1]=Q[2]=Q[23]=Q[27]=Q[64]=Q[82]=1;Q[4]=Q[5]=2;Q[6]=Q[7]=3;
 function run(p,g){
 const D=new Int32Array(256),C=new Int32Array(64),M=new Int32Array(256),O=new Uint8Array(65536),T=new Uint8Array(12);
 let sp=0,cp=0,ip=0,pc=0,st=0,ol=0;
+const pl=p.length,gl=g.length;
 const e=c=>[O.slice(0,ol),c];
 for(;;){
 if(st===1e6)return e(10);
-if(pc<0||pc>=p.length)return e(9);
+if(pc<0||pc>=pl)return e(9);
 const o=p[pc],l=L[o];
 if(l<0)return e(5);
-if(pc+l>=p.length)return e(9);
+if(pc+l>=pl)return e(9);
 st++;
 const nx=pc+1+l;
 if(sp<P[o])return e(2);
@@ -60,7 +61,7 @@ case 0x40:{const a=D[sp-1];if(a<0||a>255)return e(6);D[sp-1]=M[a];break}
 case 0x41:{const a=D[sp-1],v=D[sp-2];if(a<0||a>255)return e(6);sp-=2;M[a]=v;break}
 case 0x50:{let v=D[sp-1],n=0,ng=0;if(v<0){ng=1;v=-v}do{T[n++]=48+v%10;v=(v/10)|0}while(v>0);if(ol+n+ng>65536)return e(11);sp--;if(ng)O[ol++]=45;while(n)O[ol++]=T[--n];break}
 case 0x51:if(ol+1>65536)return e(11);O[ol++]=D[--sp]&255;break;
-case 0x52:D[sp++]=ip<g.length?g[ip++]:-1;break;
+case 0x52:D[sp++]=ip<gl?g[ip++]:-1;break;
 case 0x53:return e(D[--sp]&255);
 }}
 }
